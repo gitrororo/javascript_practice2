@@ -1,16 +1,15 @@
 const add = document.getElementById('add');
 const status = document.getElementById('status');
 const statusBtnNumber = document.getElementsByClassName('statusBtn')
-const element = document.getElementById('radioform');
-const elements = element.radio
+const choice = document.getElementById('radioform');
+const choices = radioform.radio;
 const working = document.getElementsByClassName('working');
 const complete = document.getElementsByClassName('complete');
 
-const statusBtnCreate = (td3) => {
+const createStatusBtn = () => {
     const statusBtn = document.createElement('button');
     statusBtn.textContent = '作業中';
     statusBtn.className = ('statusBtn');
-    td3.appendChild(statusBtn);
     
     statusBtn.addEventListener('click', ()=> {
        if (statusBtn.textContent === '作業中')　{
@@ -21,6 +20,7 @@ const statusBtnCreate = (td3) => {
            statusBtn.parentNode.parentNode.className = ('working');
        }
     });
+    return statusBtn;
 }
 
 const deleteBtnCreate = (td4) => {
@@ -50,7 +50,8 @@ document.getElementById('addBtn').addEventListener('click', () => {
     td2.textContent += add.value;
 
     tr.appendChild(td3);
-    statusBtnCreate(td3);
+    const statusBtn = createStatusBtn();
+    td3.appendChild(statusBtn);
 
     tr.appendChild(td4);
     deleteBtnCreate(td4);
@@ -58,31 +59,40 @@ document.getElementById('addBtn').addEventListener('click', () => {
     add.value = "";
 });
 
-elements[0].checked = true;
+choices[0].checked = true;
 
-element[0].addEventListener('click', () => {
-    for (i = 0; i < working.length; i++) {
-        working[i].style.display = '';
-    }
-    for (i = 0; i < complete.length; i++) {
-        complete[i].style.display = '';
-    }
+    choices[0].addEventListener('click', () => {
+    const workings = Array.from(working);
+    const completes = Array.from(complete);
+
+    workings.forEach(working => {
+        working.style.display = '';
+    });
+    completes.forEach(complete => {
+        complete.style.display = '';
+    });
 })
 
-element[1].addEventListener('click', () => {
-    for (i = 0; i < complete.length; i++) {
-        complete[i].style.display = 'none';
-    }
-    for (i = 0; i < working.length; i++) {
-        working[i].style.display = '';
-    }
+choices[1].addEventListener('click', () => {
+    const workings = Array.from(working);
+    const completes = Array.from(complete);
+
+    completes.forEach(complete => {
+        complete.style.display = 'none';
+    });
+    workings.forEach(working => {
+        working.style.display = '';
+    });
 })
 
-element[2].addEventListener('click', () => {
-    for (i = 0; i < working.length; i++) {
-        working[i].style.display = 'none';
-    }
-    for (i = 0; i < complete.length; i++) {
-        complete[i].style.display = '';
-    }
+choices[2].addEventListener('click', () => {
+    const workings = Array.from(working);
+    const completes = Array.from(complete);
+
+    completes.forEach(working => {
+        working.style.display = '';
+    });
+    workings.forEach(complete => {
+        complete.style.display = 'none';
+    });
 })
